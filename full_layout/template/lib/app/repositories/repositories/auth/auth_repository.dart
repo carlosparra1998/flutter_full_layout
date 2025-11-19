@@ -12,16 +12,14 @@ class AuthRepository {
   AuthRepository(this.client);
 
   Future<ClientResponse<AuthSession>> login(
-    String username,
+    String email,
     String password,
   ) async {
     return await client.call<AuthSession, AuthSession>(
       AuthEndpoints.login,
       method: HttpCall.POST,
-      data: jsonEncode({
-        'username' : username,
-        'password' : password,
-      })
+      tokenRequired: false,
+      data: jsonEncode({'email': email, 'password': password}),
     );
   }
 }

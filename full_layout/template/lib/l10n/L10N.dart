@@ -3,15 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:full_layout_base/app/utils/general_utils.dart';
 
 class L10n {
-  static final supportedLocales = [
-    const Locale('es'),
-    const Locale('en'),
-  ];
-
-  static final flags = List.generate(
-    supportedLocales.length,
-    (ix) => getFlag(code: supportedLocales[ix].languageCode),
-  );
+  static final supportedLocales = [const Locale('es'), const Locale('en')];
 
   static String getLanguageName(String code) {
     switch (code) {

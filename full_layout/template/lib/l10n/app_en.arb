@@ -1,5 +1,13 @@
 {
-    "locale" : "en",
     "spanish" : "Spanish",
-    "english" : "English"
+    "english" : "English",
+    "email" : "Email",
+    "password" : "Password",
+    "access" : "Access",
+    "login" : "Login",
+    "home" : "Home",
+    "loggedIn" : "Logged in",
+    "emailRequired" : "Email is required",
+    "passwordRequired" : "Password is required",
+    "serverError" : "Server error"
 }

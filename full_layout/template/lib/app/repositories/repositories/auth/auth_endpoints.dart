@@ -1,3 +1,3 @@
 class AuthEndpoints {
-  static final String login = '/login';
+  static final String login = '/auth/login';
 }

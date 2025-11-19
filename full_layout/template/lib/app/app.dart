@@ -27,18 +27,22 @@ class BaseApp extends StatelessWidget {
         ),
       ],
       child: Sizer(
-        builder: (_, _, _) => Consumer<LanguageCubit>(
-          builder: (_, provider, _) => GetMaterialApp(
-            title: '//TODO 2505',
-            navigatorKey: navigatorKey,
-            debugShowCheckedModeBanner: false,
-            locale: provider.locale,
-            supportedLocales: L10n.supportedLocales,
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            initialRoute: RoutesHelper.splashView,
-            getPages: RoutesHelper.routes,
-            theme: ThemeData(),
-          ),
+        builder: (_, _, _) => BlocConsumer<LanguageCubit, LanguageState>(
+          listener: (context, state) {},
+          builder: (context, state) {
+            Locale? locale = context.read<LanguageCubit>().locale;
+            return GetMaterialApp(
+              title: 'Layout App',
+              navigatorKey: navigatorKey,
+              debugShowCheckedModeBanner: false,
+              locale: locale,
+              supportedLocales: L10n.supportedLocales,
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              initialRoute: RoutesHelper.splashView,
+              getPages: RoutesHelper.routes,
+              theme: ThemeData(),
+            );
+          },
         ),
       ),
     );

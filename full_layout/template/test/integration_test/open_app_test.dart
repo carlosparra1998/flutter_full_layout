@@ -6,15 +6,13 @@ import 'integration_test_helpers.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  late MockPostRepository mockPostRepo;
-  late MockPostCommentsRepository mockCommentsRepo;
+  late MockHttpClient client;
 
   setUp(() {
-    mockPostRepo = MockPostRepository();
-    mockCommentsRepo = MockPostCommentsRepository();
+    client = MockHttpClient();
   });
 
   testWidgets('Apertura app', (WidgetTester tester) async {
-    await pumpAppWithMocks(tester, mockPostRepo, mockCommentsRepo);
+    await pumpAppWithMocks(tester, client);
   });
 }

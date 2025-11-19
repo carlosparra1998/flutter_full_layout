@@ -30,17 +30,17 @@ class AppTextField extends StatelessWidget {
           vertical: 20,
         ),
         hintText: hintText,
-        hintStyle: AppTextStyles.mainStyle.copyWith(color: AppColors.grey),
+        hintStyle: AppTextStyles.textFieldStyle.copyWith(color: AppColors.grey),
       ),
       onChanged: onChanged,
-      style: AppTextStyles.mainStyle,
+      style: AppTextStyles.textFieldStyle,
       controller: controller,
       maxLength: maxLength,
     );
   }
 
   InputBorder border() => OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: BorderSide(color: AppColors.black, width: 2),
-      );
+    borderRadius: BorderRadius.circular(10),
+    borderSide: BorderSide(color: AppColors.black, width: 2),
+  );
 }

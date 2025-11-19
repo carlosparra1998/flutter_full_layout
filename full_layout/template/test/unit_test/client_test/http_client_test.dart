@@ -1,78 +1,274 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hub_os_exercise_with_test/app/enums/http_call.dart';
-import 'package:hub_os_exercise_with_test/app/repositories/clients/http_client/http_client.dart';
-import 'package:hub_os_exercise_with_test/app/repositories/repositories/post/models/post.dart';
+import 'package:full_layout_base/app/enums/http_call.dart';
+import 'package:full_layout_base/app/repositories/clients/http_client/http_client.dart';
+import 'package:full_layout_base/app/repositories/repositories/auth/models/auth_session.dart';
 import 'package:mocktail/mocktail.dart';
 
-// Mocks
 class MockDio extends Mock implements Dio {
   @override
   Interceptors get interceptors => Interceptors(); // devuelve un objeto real
 }
 
-class FakeRequestOptions extends Fake implements RequestOptions {}
-
-class FakeResponse<T> extends Fake implements Response<T> {}
-
 void main() {
   late MockDio mockDio;
   late HttpClient client;
 
-  setUpAll(() {
-    registerFallbackValue(FakeRequestOptions());
-    registerFallbackValue(FakeResponse<Map<String, dynamic>>());
-  });
+  setUpAll(() {});
 
   setUp(() {
     mockDio = MockDio();
     client = HttpClient(mockDio);
   });
 
-  group('HttpClient GET', () {
-    test('call GET devuelve datos correctamente', () async {
-      final postJson = {
-        'id': 1,
-        'userId': 10,
-        'title': 'titulo',
-        'body': 'cuerpo'
-      };
+  group('HttpClient.POST', () {
+    test('POST OK', () async {
+      when(
+        () => mockDio.post(
+          any(),
+          queryParameters: any(named: 'queryParameters'),
+          data: any(named: 'data'),
+          options: any(named: 'options'),
+          cancelToken: any(named: 'cancelToken'),
+          onSendProgress: any(named: 'onSendProgress'),
+          onReceiveProgress: any(named: 'onReceiveProgress'),
+        ),
+      ).thenAnswer(
+        (_) async => Response(
+          data: {'access_token': 'access', 'refresh_token': 'refresh'},
+          statusCode: 200,
+          requestOptions: RequestOptions(path: '/posts'),
+        ),
+      );
 
-      // Simulamos la respuesta de Dio
-      when(() => mockDio.get(any(),
-              queryParameters: any(named: 'queryParameters')))
-          .thenAnswer((_) async => Response(
-                data: [postJson],
-                statusCode: 200,
-                requestOptions: RequestOptions(path: '/posts'),
-              ));
-
-      final result =
-          await client.call<List<Post>, Post>('/posts', method: HttpCall.GET);
+      final result = await client.call<AuthSession, AuthSession>(
+        '/posts',
+        method: HttpCall.POST,
+      );
 
       expect(result.isError, isFalse);
-      expect(result.data!.length, 1);
-      expect(result.data!.first.id, 1);
+      expect(result.data, isNotNull);
+      expect(result.data!.accessToken, 'access');
+      expect(result.data!.refreshToken, 'refresh');
 
-      verify(() => mockDio.get(any(),
-          queryParameters: any(named: 'queryParameters'))).called(1);
+      verify(
+        () => mockDio.post(
+          any(),
+          queryParameters: any(named: 'queryParameters'),
+          data: any(named: 'data'),
+          options: any(named: 'options'),
+          cancelToken: any(named: 'cancelToken'),
+          onSendProgress: any(named: 'onSendProgress'),
+          onReceiveProgress: any(named: 'onReceiveProgress'),
+        ),
+      ).called(1);
     });
-    test('call GET devuelve error si Dio lanza exception', () async {
-      when(() => mockDio.get(any(),
-              queryParameters: any(named: 'queryParameters')))
-          .thenThrow(DioException(
-              message: 'fail',
-              requestOptions: RequestOptions(path: '/posts'), error: 'fail'));
 
-      final result =
-          await client.call<List<Post>, Post>('/posts', method: HttpCall.GET);
+    test('POST KO', () async {
+      when(
+        () => mockDio.post(
+          any(),
+          queryParameters: any(named: 'queryParameters'),
+          data: any(named: 'data'),
+          options: any(named: 'options'),
+          cancelToken: any(named: 'cancelToken'),
+          onSendProgress: any(named: 'onSendProgress'),
+          onReceiveProgress: any(named: 'onReceiveProgress'),
+        ),
+      ).thenThrow(
+        DioException(
+          message: 'fail',
+          requestOptions: RequestOptions(path: '/posts'),
+          error: 'fail',
+        ),
+      );
+
+      final result = await client.call<AuthSession, AuthSession>(
+        '/posts',
+        method: HttpCall.POST,
+      );
 
       expect(result.isError, isTrue);
       expect(result.data, isNull);
       expect(result.errorMessage, 'fail');
 
-      verify(() => mockDio.get(any(),
-          queryParameters: any(named: 'queryParameters'))).called(1);
+      verify(
+        () => mockDio.post(
+          any(),
+          queryParameters: any(named: 'queryParameters'),
+          data: any(named: 'data'),
+          options: any(named: 'options'),
+          cancelToken: any(named: 'cancelToken'),
+          onSendProgress: any(named: 'onSendProgress'),
+          onReceiveProgress: any(named: 'onReceiveProgress'),
+        ),
+      ).called(1);
+    });
+  });
+
+  group('HttpClient.GET', () {
+    test('GET OK', () async {
+      when(
+        () => mockDio.get(
+          any(),
+          queryParameters: any(named: 'queryParameters'),
+          data: any(named: 'data'),
+          options: any(named: 'options'),
+          cancelToken: any(named: 'cancelToken'),
+          onReceiveProgress: any(named: 'onReceiveProgress'),
+        ),
+      ).thenAnswer(
+        (_) async => Response(
+          data: {'access_token': 'access', 'refresh_token': 'refresh'},
+          statusCode: 200,
+          requestOptions: RequestOptions(path: '/posts'),
+        ),
+      );
+
+      final result = await client.call<AuthSession, AuthSession>(
+        '/posts',
+        method: HttpCall.GET,
+      );
+
+      expect(result.isError, isFalse);
+      expect(result.data, isNotNull);
+      expect(result.data!.accessToken, 'access');
+      expect(result.data!.refreshToken, 'refresh');
+
+      verify(
+        () => mockDio.get(
+          any(),
+          queryParameters: any(named: 'queryParameters'),
+          data: any(named: 'data'),
+          options: any(named: 'options'),
+          cancelToken: any(named: 'cancelToken'),
+          onReceiveProgress: any(named: 'onReceiveProgress'),
+        ),
+      ).called(1);
+    });
+
+    test('GET KO', () async {
+      when(
+        () => mockDio.get(
+          any(),
+          queryParameters: any(named: 'queryParameters'),
+          data: any(named: 'data'),
+          options: any(named: 'options'),
+          cancelToken: any(named: 'cancelToken'),
+          onReceiveProgress: any(named: 'onReceiveProgress'),
+        ),
+      ).thenThrow(
+        DioException(
+          message: 'fail',
+          requestOptions: RequestOptions(path: '/posts'),
+          error: 'fail',
+        ),
+      );
+
+      final result = await client.call<AuthSession, AuthSession>(
+        '/posts',
+        method: HttpCall.GET,
+      );
+
+      expect(result.isError, isTrue);
+      expect(result.data, isNull);
+      expect(result.errorMessage, 'fail');
+
+      verify(
+        () => mockDio.get(
+          any(),
+          queryParameters: any(named: 'queryParameters'),
+          data: any(named: 'data'),
+          options: any(named: 'options'),
+          cancelToken: any(named: 'cancelToken'),
+          onReceiveProgress: any(named: 'onReceiveProgress'),
+        ),
+      ).called(1);
+    });
+  });
+
+  group('HttpClient.PUT', () {
+    test('PUT OK', () async {
+      when(
+        () => mockDio.put(
+          any(),
+          queryParameters: any(named: 'queryParameters'),
+          data: any(named: 'data'),
+          options: any(named: 'options'),
+          cancelToken: any(named: 'cancelToken'),
+          onSendProgress: any(named: 'onSendProgress'),
+          onReceiveProgress: any(named: 'onReceiveProgress'),
+        ),
+      ).thenAnswer(
+        (_) async => Response(
+          data: {'access_token': 'access', 'refresh_token': 'refresh'},
+          statusCode: 200,
+          requestOptions: RequestOptions(path: '/posts'),
+        ),
+      );
+
+      final result = await client.call<AuthSession, AuthSession>(
+        '/posts',
+        method: HttpCall.PUT,
+      );
+
+      expect(result.isError, isFalse);
+      expect(result.data, isNotNull);
+      expect(result.data!.accessToken, 'access');
+      expect(result.data!.refreshToken, 'refresh');
+
+      verify(
+        () => mockDio.put(
+          any(),
+          queryParameters: any(named: 'queryParameters'),
+          data: any(named: 'data'),
+          options: any(named: 'options'),
+          cancelToken: any(named: 'cancelToken'),
+          onSendProgress: any(named: 'onSendProgress'),
+          onReceiveProgress: any(named: 'onReceiveProgress'),
+        ),
+      ).called(1);
+    });
+
+    test('PUT KO', () async {
+      when(
+        () => mockDio.put(
+          any(),
+          queryParameters: any(named: 'queryParameters'),
+          data: any(named: 'data'),
+          options: any(named: 'options'),
+          cancelToken: any(named: 'cancelToken'),
+          onSendProgress: any(named: 'onSendProgress'),
+          onReceiveProgress: any(named: 'onReceiveProgress'),
+        ),
+      ).thenThrow(
+        DioException(
+          message: 'fail',
+          requestOptions: RequestOptions(path: '/posts'),
+          error: 'fail',
+        ),
+      );
+
+      final result = await client.call<AuthSession, AuthSession>(
+        '/posts',
+        method: HttpCall.PUT,
+      );
+
+      expect(result.isError, isTrue);
+      expect(result.data, isNull);
+      expect(result.errorMessage, 'fail');
+
+      verify(
+        () => mockDio.put(
+          any(),
+          queryParameters: any(named: 'queryParameters'),
+          data: any(named: 'data'),
+          options: any(named: 'options'),
+          cancelToken: any(named: 'cancelToken'),
+          onSendProgress: any(named: 'onSendProgress'),
+          onReceiveProgress: any(named: 'onReceiveProgress'),
+        ),
+      ).called(1);
     });
   });
 }

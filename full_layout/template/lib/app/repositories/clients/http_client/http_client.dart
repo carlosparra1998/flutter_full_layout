@@ -2,6 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:full_layout_base/app/enums/http_call.dart';
 import 'package:full_layout_base/app/repositories/clients/client_response.dart';
 import 'package:full_layout_base/app/repositories/repositories/auth/models/auth_session.dart';
+import 'package:full_layout_base/app/services/auth/auth_cubit.dart';
+import 'package:full_layout_base/app/utils/general_utils.dart';
+import 'package:provider/provider.dart';
 
 class HttpClient {
   final Dio dio;
@@ -21,6 +24,7 @@ class HttpClient {
     HttpCall method = HttpCall.GET,
     dynamic data,
     Map<String, dynamic>? queryParameters,
+    bool tokenRequired = true,
   }) async {
     bool error = false;
     String? errorMessage;
@@ -32,6 +36,7 @@ class HttpClient {
         method,
         data,
         queryParameters,
+        tokenRequired,
       );
       if (response is Map<String, dynamic>) {
         dataResult = _getResultObject<R>(response) as T;
@@ -55,6 +60,10 @@ class HttpClient {
   }
 
   void _onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    if (options.extra['tokenRequired'] ?? false) {
+      String token = globalContext.read<AuthCubit>().session?.accessToken ?? '';
+      options.headers['Authorization'] = 'Bearer $token';
+    }
     handler.next(options);
   }
 
@@ -66,6 +75,8 @@ class HttpClient {
   }
 
   void _onError(DioException error, ErrorInterceptorHandler handler) {
+    String message = error.response?.data['message'] ?? translate.serverError;
+    showSnackBar(message);
     handler.next(error);
   }
 
@@ -74,20 +85,27 @@ class HttpClient {
     HttpCall method,
     dynamic data,
     Map<String, dynamic>? queryParameters,
+    bool tokenRequired,
   ) async {
     switch (method) {
       case HttpCall.GET:
-        return (await dio.get(endpoint, queryParameters: queryParameters)).data;
+        return (await dio.get(
+          endpoint,
+          queryParameters: queryParameters,
+          options: Options(extra: {'tokenRequired': tokenRequired}),
+        )).data;
       case HttpCall.POST:
         return (await dio.post(
           endpoint,
           queryParameters: queryParameters,
+          options: Options(extra: {'tokenRequired': tokenRequired}),
           data: data,
         )).data;
       case HttpCall.PUT:
         return (await dio.put(
           endpoint,
           queryParameters: queryParameters,
+          options: Options(extra: {'tokenRequired': tokenRequired}),
           data: data,
         )).data;
     }

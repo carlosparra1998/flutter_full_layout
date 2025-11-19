@@ -11,3 +11,17 @@ class AuthInitial extends AuthState {
 class AuthUpdated extends AuthState {
   const AuthUpdated();
 }
+
+class AuthError extends AuthState {
+  final String codeMessage;
+  const AuthError(this.codeMessage);
+}
+
+class AuthLoading extends AuthState {
+  final bool loading;
+  const AuthLoading(this.loading);
+}
+
+class AuthSuccess extends AuthState {
+  const AuthSuccess();
+}

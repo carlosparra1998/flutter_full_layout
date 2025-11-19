@@ -98,12 +98,6 @@ abstract class AppLocalizations {
     Locale('es'),
   ];
 
-  /// No description provided for @locale.
-  ///
-  /// In es, this message translates to:
-  /// **'es'**
-  String get locale;
-
   /// No description provided for @spanish.
   ///
   /// In es, this message translates to:
@@ -115,6 +109,60 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Inglés'**
   String get english;
+
+  /// No description provided for @email.
+  ///
+  /// In es, this message translates to:
+  /// **'Email'**
+  String get email;
+
+  /// No description provided for @password.
+  ///
+  /// In es, this message translates to:
+  /// **'Contraseña'**
+  String get password;
+
+  /// No description provided for @access.
+  ///
+  /// In es, this message translates to:
+  /// **'Acceder'**
+  String get access;
+
+  /// No description provided for @login.
+  ///
+  /// In es, this message translates to:
+  /// **'Inicio de sesión'**
+  String get login;
+
+  /// No description provided for @home.
+  ///
+  /// In es, this message translates to:
+  /// **'Home'**
+  String get home;
+
+  /// No description provided for @loggedIn.
+  ///
+  /// In es, this message translates to:
+  /// **'Sesión iniciada'**
+  String get loggedIn;
+
+  /// No description provided for @emailRequired.
+  ///
+  /// In es, this message translates to:
+  /// **'Debes introducir un email'**
+  String get emailRequired;
+
+  /// No description provided for @passwordRequired.
+  ///
+  /// In es, this message translates to:
+  /// **'Debes introducir una contraseña'**
+  String get passwordRequired;
+
+  /// No description provided for @serverError.
+  ///
+  /// In es, this message translates to:
+  /// **'Error en el servidor'**
+  String get serverError;
 }
 
 class _AppLocalizationsDelegate
