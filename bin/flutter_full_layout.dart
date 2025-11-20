@@ -29,7 +29,6 @@
 // LinkedIn: https://www.linkedin.com/in/carlos-francisco-parra-garcía-9b16941b5/
 
 import 'dart:io';
-import 'dart:isolate';
 import 'package:path/path.dart' as p;
 
 Future<void> main(List<String> args) async {
@@ -101,7 +100,6 @@ Future<void> main(List<String> args) async {
 
   final scriptDir = p.dirname(Platform.script.toFilePath());
 
-  // Template está en la raíz del paquete junto a bin/
   final templatePath = p.normalize(p.join(scriptDir, '..', 'template'));
   final templateDir = Directory(templatePath);
 
@@ -143,20 +141,21 @@ Future<void> main(List<String> args) async {
 Future<void> copyDirectory(Directory source, Directory destination) async {
   if (!destination.existsSync()) destination.createSync(recursive: true);
 
-  await for (final entity in source.list(recursive: false)) {
-    final newPath = p.join(destination.path, p.basename(entity.path));
+  await for (final entity in source.list(recursive: true)) {
+    final newPath =
+        p.join(destination.path, p.relative(entity.path, from: source.path));
+
     if (entity is Directory) {
-      await copyDirectory(entity, Directory(newPath));
+      Directory(newPath).createSync(recursive: true);
     } else if (entity is File) {
+      File(newPath).createSync(recursive: true);
       await entity.copy(newPath);
     }
   }
 }
 
 Future<void> replaceTokensInDirectory(
-  Directory dir,
-  Map<String, String> tokens,
-) async {
+    Directory dir, Map<String, String> tokens) async {
   final allowedExtensions = [
     '.dart',
     '.yaml',
@@ -170,7 +169,7 @@ Future<void> replaceTokensInDirectory(
     '.pbxproj',
     '.kt',
     '.rc',
-    '.xcconfig',
+    '.xcconfig'
   ];
 
   await for (final entity in dir.list(recursive: true)) {
@@ -185,15 +184,4 @@ Future<void> replaceTokensInDirectory(
     });
     await entity.writeAsString(content);
   }
-}
-
-Future<String> resolveTemplatePath() async {
-  final templateUri = Uri.parse('package:full_layout/template/');
-  final resolved = await Isolate.resolvePackageUri(templateUri);
-  if (resolved == null) {
-    throw Exception(
-      'The template could not be resolved from the package:full_layout/template',
-    );
-  }
-  return p.dirname(resolved.toFilePath());
 }
