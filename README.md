@@ -1,19 +1,19 @@
-# Full Layout - Flutter Project Generator
+# Full Layout - Flutter Project Generator 🚀🚀🚀
 
 CLI to generate a complete Flutter project with CLEAN ARCHITECTURE.
 
 It will allow the developer to create a base project with CLEAN ARCHITECTURE. In this architecture, we use services (Cubits) for each use case. These services will communicate with repositories (for each use case), and these repositories will communicate with the DIO client (HTTP).
 
-///// * In this layout, BLoC and Cubit are used for state management. 
-///// * DIO is used for communication with the REST API. 
-///// * l10n is used for translations.
-///// * Real use case in full operation (Auth - login)
-///// * Basic responsive design management
-///// * Route management with GET
-///// * Defined styles (text styles and colours)
-///// * Complete initialiser in Splash Screen
-///// * Predefined tests (unit, integration and widgets) [92% coverage].
-///// * A homemade HTTP client (using DIO) that provides directly constructed objects/lists, without the need for processing (just indicate the fromJson of a specific class to target in the client).
+- In this layout, BLoC and Cubit are used for state management. 
+- DIO is used for communication with the REST API. 
+- l10n is used for translations.
+- Real use case in full operation (Auth - login)
+- Basic responsive design management
+- Route management with GET
+- Defined styles (text styles and colours)
+- Complete initialiser in Splash Screen
+- Predefined tests (unit, integration and widgets) [92% coverage].
+- A homemade HTTP client (using DIO) that provides directly constructed objects/lists, without the need for processing (just indicate the fromJson of a specific class to target in the client).
 
 ---
 
