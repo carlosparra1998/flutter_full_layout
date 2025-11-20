@@ -127,18 +127,13 @@ Future<void> main(List<String> args) async {
     templates['gitignore']!,
   );
   print('🔧 Running flutter pub get...\n');
-  final isWindows = Platform.isWindows;
-  final executable = isWindows ? 'cmd.exe' : '/bin/bash';
-  final argsExec =
-      isWindows ? ['/c', 'flutter pub get'] : ['-c', 'flutter pub get'];
   final result = await Process.run(
-    executable,
-    argsExec,
-    workingDirectory: targetDir.path,
+    'flutter',
+    ['pub', 'get'],
+    workingDirectory: Directory(projectName).path,
     runInShell: true,
   );
-  result.stdout.transform(SystemEncoding().decoder).listen(stdout.write);
-  result.stderr.transform(SystemEncoding().decoder).listen(stderr.write);
+
   if (result.exitCode != 0) {
     print('❌ Error executing flutter pub get:');
     print(result.stderr);
