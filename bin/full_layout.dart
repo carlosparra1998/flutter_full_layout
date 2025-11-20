@@ -43,7 +43,7 @@ Future<void> main(List<String> args) async {
   final templateDir = Directory('$templateDirPath/template');
   print(templateDir);
 
-  if (true || !templateDir.existsSync()) {
+  if (templateDir.existsSync()) {
     print('❌ No se encontró la carpeta template en template/');
     exit(1);
   }
