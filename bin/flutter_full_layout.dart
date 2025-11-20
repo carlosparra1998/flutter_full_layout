@@ -143,6 +143,7 @@ Future<void> main(List<String> args) async {
 
   print('🎉 Project successfully generated!\n');
   print('👉 cd $projectName');
+  print('👉 flutter pub get');
   print('👉 flutter run\n');
 }
 

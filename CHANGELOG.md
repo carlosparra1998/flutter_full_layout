@@ -1,3 +1,7 @@
+## 1.2.4
+
+- Fix bug in flutter pub get automatically
+
 ## 1.2.3
 
 - Fix bug in .env and .gitignore files
