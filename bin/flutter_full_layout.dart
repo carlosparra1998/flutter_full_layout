@@ -99,17 +99,17 @@ Future<void> main(List<String> args) async {
     exit(1);
   }
 
-  final templateDirPath = await resolveTemplatePath();
-  print(templateDirPath);
-  final templateDir = Directory('$templateDirPath/template');
+  final scriptDir = p.dirname(Platform.script.toFilePath());
 
-  if (!templateDir.existsSync()) {
-    print('❌ The template folder was not found.');
+  final templateDir = p.normalize(p.join(scriptDir, '..', 'template'));
+
+  if (!Directory(templateDir).existsSync()) {
+    print('❌ The template folder was not found at $templateDir.');
     exit(1);
   }
 
   print('📦 Copying template...');
-  await copyDirectory(templateDir, targetDir);
+  await copyDirectory(Directory(templateDir), targetDir);
 
   print('🔧 Replacing tokens...');
   await replaceTokensInDirectory(targetDir, {
