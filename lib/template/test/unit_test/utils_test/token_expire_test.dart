@@ -1,4 +1,4 @@
-import 'package:aa22/app/utils/general_utils.dart';
+import 'package:{{PROJECT_NAME}}/app/utils/general_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
