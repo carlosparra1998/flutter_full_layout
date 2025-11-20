@@ -33,7 +33,7 @@ import 'dart:isolate';
 import 'package:path/path.dart' as p;
 
 Future<void> main(List<String> args) async {
-  print('🚀 Flutter FULL LAYOUT Template CLI (--help)🚀\n');
+  print('🚀 Flutter FULL LAYOUT Template CLI (--help) 🚀\n');
 
   if (args.isEmpty) {
     print(
