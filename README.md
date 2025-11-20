@@ -1,6 +1,6 @@
 # Full Layout - Flutter CLEAN ARCH Project Generator 🚀🚀🚀
 
-`Current Full Layout CLI version: 1.1.0`
+`Current Full Layout CLI version: 1.1.1`
 
 `Flutter version: 3.38.2`
 

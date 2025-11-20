@@ -1,6 +1,6 @@
 name: full_layout
 description: "CLI to generate Flutter projects with a full layout template."
-version: 1.1.0
+version: 1.1.1
 repository: https://github.com/carlosparra1998/full_layout
 homepage: https://github.com/carlosparra1998/full_layout
 
