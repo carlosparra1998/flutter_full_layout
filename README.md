@@ -21,33 +21,32 @@ It will allow the developer to create a base project with CLEAN ARCHITECTURE. In
 - `Predefined tests` (unit, integration and widgets) [91.8% coverage].
 - A `homemade HTTP client (using DIO)` that provides directly constructed objects/lists, without the need for processing (just indicate the fromJson of a specific class to target in the client).
  
-## Install and creation
+---
 
-Let's take a look at the simple steps to start using the tool 🚀
+## Installing
 
-### Step 1. Install the tool
-
-First, using the terminal, we will access a directory where we want the project to be created.
-
-Then we run:
+Install globally via Dart:
 
 ```bash
-$dart pub global activate flutter_full_layout
+dart pub global activate flutter_full_layout
 ```
+
+> After installation, the `flutter_full_layout` command will be available globally.
 
 ---
 
-### Step 2. Create a Flutter project with the tool.
+## Usage
 
-Once installed, we can create our project with this command:
+Create a new Flutter project using your template:
 
 ```bash
-$flutter_full_layout create my_project --package com.mycompany.my_project --name "My App"
+flutter_full_layout create my_app --package com.example.myapp --name "My App"
 ```
 
-- --package => optional (default: com.example.<project_name>)
-- --name  => optional (default: <project_name>)
-- --help  => optional (Explain the command structure)
+* `my_app` → folder name for your new project
+* `--package` → (optional) your app's package ID (e.g., `com.example.myapp`)
+* `--name` → (optional) display name of your app
+
 ---
 
 ## Details about your newly created project
