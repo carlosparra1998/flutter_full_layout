@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:isolate';
 import 'package:path/path.dart' as p;
 
 Future<void> main(List<String> args) async {
@@ -22,12 +23,8 @@ Future<void> main(List<String> args) async {
   String appName = projectName;
 
   for (int i = 2; i < args.length; i++) {
-    if (args[i] == '--package' && i + 1 < args.length) {
-      packageName = args[i + 1];
-    }
-    if (args[i] == '--name' && i + 1 < args.length) {
-      appName = args[i + 1];
-    }
+    if (args[i] == '--package' && i + 1 < args.length) packageName = args[i + 1];
+    if (args[i] == '--name' && i + 1 < args.length) appName = args[i + 1];
   }
 
   print('\n📁 Generando proyecto...');
@@ -41,13 +38,12 @@ Future<void> main(List<String> args) async {
     exit(1);
   }
 
-  // ---------- Detectar template relativo al script ----------
-  final scriptDir = p.dirname(Platform.script.toFilePath());
-  print(p.join(scriptDir, '..' , 'lib', 'template'));
-  final templateDir = Directory(p.join(scriptDir, '..' , 'lib', 'template'));
+  // ---------- Resolver template dentro de lib/template ----------
+  final templateDirPath = await resolveTemplatePath();
+  final templateDir = Directory(templateDirPath);
 
   if (!templateDir.existsSync()) {
-    print('❌ No se encontró la carpeta /template en la raíz del CLI :().');
+    print('❌ No se encontró la carpeta template en lib/');
     exit(1);
   }
 
@@ -117,4 +113,17 @@ Future<void> replaceTokensInDirectory(Directory dir, Map<String, String> tokens)
     });
     await entity.writeAsString(content);
   }
+}
+
+// -----------------------------------------------------------
+// Resolver package: URI a path físico
+// -----------------------------------------------------------
+Future<String> resolveTemplatePath() async {
+  // Cambia 'full_layout' por el nombre de tu paquete en pubspec.yaml
+  final templateUri = Uri.parse('package:full_layout/template/');
+  final resolved = await Isolate.resolvePackageUri(templateUri);
+  if (resolved == null) {
+    throw Exception('No se pudo resolver el template desde package:full_layout/template');
+  }
+  return p.dirname(resolved.toFilePath());
 }
