@@ -41,8 +41,9 @@ Future<void> main(List<String> args) async {
   // ---------- Resolver template dentro de lib/template ----------
   final templateDirPath = await resolveTemplatePath();
   final templateDir = Directory(templateDirPath);
+  print(templateDir);
 
-  if (!templateDir.existsSync()) {
+  if (true || !templateDir.existsSync()) {
     print('❌ No se encontró la carpeta template en lib/');
     exit(1);
   }
