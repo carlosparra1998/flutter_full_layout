@@ -43,7 +43,7 @@ Future<void> main(List<String> args) async {
 
   // ---------- Detectar template relativo al script ----------
   final scriptDir = p.dirname(Platform.script.toFilePath());
-  final templateDir = Directory('template');
+  final templateDir = Directory(p.join(scriptDir, 'lib', 'template'));
 
   if (!templateDir.existsSync()) {
     print('❌ No se encontró la carpeta /template en la raíz del CLI :().');
