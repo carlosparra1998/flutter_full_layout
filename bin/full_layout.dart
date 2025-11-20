@@ -3,11 +3,11 @@ import 'dart:isolate';
 import 'package:path/path.dart' as p;
 
 Future<void> main(List<String> args) async {
-  print('🚀 Flutter FULL LAYOUT Template CLI 🚀\n');
+  print('🚀 Flutter FULL LAYOUT Template CLI (--help)🚀\n');
 
   if (args.isEmpty || args.length < 2) {
     print(
-      'Example: full_layout create <my_app> --package <com.example.my_app> --name <"My App">',
+      'Example: full_layout create <my_app> --package <com.mycompany.my_app> --name <"My App">',
     );
     exit(1);
   }
@@ -18,11 +18,24 @@ Future<void> main(List<String> args) async {
     exit(1);
   }
 
-  if (command == 'help') {
-    print(
-      'Example: full_layout create <project_name> --package com.example.app --name "My App"',
-    );
-    exit(1);
+  if (command == 'help' || args.contains('--help') || args.contains('-h')) {
+    print('''
+
+        Usage:
+          full_layout create <project_name> [options]
+
+        Commands:
+          create          Generate a new Flutter project using the template
+
+        Options:
+          --package       Set the application package ID (default: com.example.<project_name>)
+          --name          Set the application display name (default: <project_name>)
+          -h, --help      Show this help message
+
+        Example:
+          full_layout create my_app --package com.mycompany.my_app --name "My App"
+    ''');
+    exit(0);
   }
 
   final projectName = args[1].trim().replaceAll(' ', '_').toLowerCase();
