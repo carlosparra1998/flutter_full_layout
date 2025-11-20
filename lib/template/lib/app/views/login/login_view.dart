@@ -79,7 +79,7 @@ class _LoginViewState extends State<LoginView> {
                     onTap: () => context.read<AuthCubit>().login(),
                   ),
                   H(5.h),
-                  LanguageDropdown(key: Key('dropdown_languages'),),
+                  LanguageDropdown(key: Key('dropdown_languages')),
                 ],
               ),
             );

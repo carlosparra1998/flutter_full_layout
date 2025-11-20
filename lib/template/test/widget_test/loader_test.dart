@@ -3,8 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:{{PROJECT_NAME}}/app/widgets/loader.dart';
 
 void main() {
-  setUp(() {
-  });
+  setUp(() {});
   testWidgets('ArcLoader renders correctly', (WidgetTester tester) async {
     await tester.pumpWidget(
       const MaterialApp(home: Scaffold(body: ArcLoader())),

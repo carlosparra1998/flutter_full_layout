@@ -8,15 +8,15 @@ void main() {
   group('SharedPreference', () {
     test('Test getString', () async {
       SharedPreferences.setMockInitialValues({'key1': 'value'});
-      final result = await getString('key1');
+      final result = await getStringSharedPreferences('key1');
       expect(result, isNotNull);
       expect(result, isNotEmpty);
       expect(result, 'value');
     });
 
     test('Test setString', () async {
-      await setString('key2', 'value2');
-      final result = await getString('key2');
+      await setStringSharedPreferences('key2', 'value2');
+      final result = await getStringSharedPreferences('key2');
 
       expect(result, isNotNull);
       expect(result, isNotEmpty);
