@@ -93,21 +93,24 @@ class HttpClient {
           endpoint,
           queryParameters: queryParameters,
           options: Options(extra: {'tokenRequired': tokenRequired}),
-        )).data;
+        ))
+            .data;
       case HttpCall.POST:
         return (await dio.post(
           endpoint,
           queryParameters: queryParameters,
           options: Options(extra: {'tokenRequired': tokenRequired}),
           data: data,
-        )).data;
+        ))
+            .data;
       case HttpCall.PUT:
         return (await dio.put(
           endpoint,
           queryParameters: queryParameters,
           options: Options(extra: {'tokenRequired': tokenRequired}),
           data: data,
-        )).data;
+        ))
+            .data;
     }
   }
 

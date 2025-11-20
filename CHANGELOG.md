@@ -1,3 +1,7 @@
+## 1.2.0
+
+- Fix details.
+
 ## 1.1.3
 
 - Fix rename project.

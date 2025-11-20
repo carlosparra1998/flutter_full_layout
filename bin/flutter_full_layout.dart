@@ -1,32 +1,32 @@
-/// # Full Layout - Flutter Project Generator
-///
-//// CLI to generate a complete Flutter project with CLEAN ARCHITECTURE.
-///
-/// ## Description
-//// It will allow the developer to create a base project with CLEAN ARCHITECTURE. In this architecture, we use services (Cubits) for each use case. These services will communicate with repositories (for each use case), and these repositories will communicate with the DIO client (HTTP).
-////
-///// * In this layout, BLoC and Cubit are used for state management. 
-///// * DIO is used for communication with the REST API. 
-///// * l10n is used for translations.
-///// * Real use case in full operation (Auth - login)
-///// * Basic responsive design management
-///// * Route management with GET
-///// * Defined styles (text styles and colours)
-///// * Complete initialiser in Splash Screen
-///// * Predefined tests (unit, integration and widgets) [92% coverage].
-///// * A homemade HTTP client (using DIO) that provides directly constructed objects/lists, without the need for processing (just indicate the fromJson of a specific class to target in the client).
-///
-/// ## Author
-/// Developed by Carlos Francisco Parra García.
-///
-/// ## License
-/// MIT License - See the LICENSE file for more details.
-///
-/// © 2025 Carlos Francisco Parra García. All rights reserved.
-///
-/// GitHub: https://github.com/carlosparra1998?tab=repositories
-///
-/// LinkedIn: https://www.linkedin.com/in/carlos-francisco-parra-garcía-9b16941b5/
+// # Full Layout - Flutter Project Generator
+//
+// CLI to generate a complete Flutter project with CLEAN ARCHITECTURE.
+//
+// ## Description
+// It will allow the developer to create a base project with CLEAN ARCHITECTURE. In this architecture, we use services (Cubits) for each use case. These services will communicate with repositories (for each use case), and these repositories will communicate with the DIO client (HTTP).
+//
+// * In this layout, BLoC and Cubit are used for state management.
+// * DIO is used for communication with the REST API.
+// * l10n is used for translations.
+// * Real use case in full operation (Auth - login)
+// * Basic responsive design management
+// * Route management with GET
+// * Defined styles (text styles and colours)
+// * Complete initialiser in Splash Screen
+// * Predefined tests (unit, integration and widgets) [92% coverage].
+// * A homemade HTTP client (using DIO) that provides directly constructed objects/lists, without the need for processing (just indicate the fromJson of a specific class to target in the client).
+//
+// ## Author
+// Developed by Carlos Francisco Parra García.
+//
+// ## License
+// MIT License - See the LICENSE file for more details.
+//
+// © 2025 Carlos Francisco Parra García. All rights reserved.
+//
+// GitHub: https://github.com/carlosparra1998?tab=repositories
+//
+// LinkedIn: https://www.linkedin.com/in/carlos-francisco-parra-garcía-9b16941b5/
 
 import 'dart:io';
 import 'dart:isolate';

@@ -13,8 +13,8 @@ class RoutesHelper {
   static String get homeView => _homeView;
 
   static List<GetPage> get routes => [
-    GetPage(name: _splashView, page: () => const SplashView()),
-    GetPage(name: _loginView, page: () => const LoginView()),
-    GetPage(name: _homeView, page: () => const HomeView()),
-  ];
+        GetPage(name: _splashView, page: () => const SplashView()),
+        GetPage(name: _loginView, page: () => const LoginView()),
+        GetPage(name: _homeView, page: () => const HomeView()),
+      ];
 }
