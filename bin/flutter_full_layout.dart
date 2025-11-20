@@ -29,7 +29,6 @@
 // LinkedIn: https://www.linkedin.com/in/carlos-francisco-parra-garcía-9b16941b5/
 
 import 'dart:io';
-import 'dart:isolate';
 import 'package:path/path.dart' as p;
 
 Future<void> main(List<String> args) async {
@@ -108,7 +107,7 @@ Future<void> main(List<String> args) async {
   }
 
   print('📦 Copying template...');
-  await copyDirectory(templateDir, targetDir);
+  await copyDirectoryContent(templateDir, targetDir);
 
   print('🔧 Replacing tokens...');
   await replaceTokensInDirectory(targetDir, {
@@ -138,15 +137,10 @@ Future<void> main(List<String> args) async {
 }
 
 Future<Directory> resolveTemplateDir() async {
-  final templateUri = Uri.parse('package:flutter_full_layout/template/');
-  final resolved = await Isolate.resolvePackageUri(templateUri);
+  final scriptDir = Directory.current.path;
+  final templatePath = p.join(scriptDir, 'template');
+  final templateDir = Directory(templatePath);
 
-  if (resolved == null) {
-    throw Exception(
-        '❌ The template could not be resolved from package:flutter_full_layout/template');
-  }
-
-  final templateDir = Directory(resolved.toFilePath());
   if (!templateDir.existsSync()) {
     throw Exception('❌ Template folder not found at ${templateDir.path}');
   }
@@ -154,12 +148,14 @@ Future<Directory> resolveTemplateDir() async {
   return templateDir;
 }
 
-Future<void> copyDirectory(Directory source, Directory destination) async {
+Future<void> copyDirectoryContent(
+    Directory source, Directory destination) async {
   if (!destination.existsSync()) destination.createSync(recursive: true);
 
   await for (final entity in source.list(recursive: true)) {
-    final newPath =
-        p.join(destination.path, p.relative(entity.path, from: source.path));
+    final relativePath = p.relative(entity.path, from: source.path);
+    final newPath = p.join(destination.path, relativePath);
+
     if (entity is Directory) {
       Directory(newPath).createSync(recursive: true);
     } else if (entity is File) {
