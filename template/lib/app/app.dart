@@ -27,7 +27,7 @@ class BaseApp extends StatelessWidget {
         ),
       ],
       child: Sizer(
-        builder: (_, _, _) => BlocConsumer<LanguageCubit, LanguageState>(
+        builder: (_, __, ___) => BlocConsumer<LanguageCubit, LanguageState>(
           listener: (context, state) {},
           builder: (context, state) {
             Locale? locale = context.read<LanguageCubit>().locale;
