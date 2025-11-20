@@ -1,3 +1,7 @@
+## 1.2.5
+
+- Fix package versions
+
 ## 1.2.4
 
 - Fix bug in flutter pub get automatically
