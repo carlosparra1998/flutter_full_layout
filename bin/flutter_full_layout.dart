@@ -99,10 +99,11 @@ Future<void> main(List<String> args) async {
     exit(1);
   }
 
-  final templateDirPath = await resolveTemplatePath();
-  String parentPath = p.normalize(p.join(templateDirPath, '..'));
-  print(p.join(parentPath,'template'));
-  final templateDir = Directory(parentPath + '/template');
+  final scriptDir = p.dirname(Platform.script.toFilePath());
+
+  // Template está en la raíz del paquete junto a bin/
+  final templatePath = p.normalize(p.join(scriptDir, '..', 'template'));
+  final templateDir = Directory(templatePath);
 
   if (!templateDir.existsSync()) {
     print('❌ The template folder was not found.');
