@@ -1,3 +1,33 @@
+/// # Full Layout - Flutter Project Generator
+///
+//// CLI to generate a complete Flutter project with CLEAN ARCHITECTURE.
+///
+/// ## Description
+//// It will allow the developer to create a base project with CLEAN ARCHITECTURE. In this architecture, we use services (Cubits) for each use case. These services will communicate with repositories (for each use case), and these repositories will communicate with the DIO client (HTTP).
+////
+///// * In this layout, BLoC and Cubit are used for state management. 
+///// * DIO is used for communication with the REST API. 
+///// * l10n is used for translations.
+///// * Real use case in full operation (Auth - login)
+///// * Basic responsive design management
+///// * Route management with GET
+///// * Defined styles (text styles and colours)
+///// * Complete initialiser in Splash Screen
+///// * Predefined tests (unit, integration and widgets) [92% coverage].
+///// * A homemade HTTP client (using DIO) that provides directly constructed objects/lists, without the need for processing (just indicate the fromJson of a specific class to target in the client).
+///
+/// ## Author
+/// Developed by Carlos Francisco Parra García.
+///
+/// ## License
+/// MIT License - See the LICENSE file for more details.
+///
+/// © 2025 Carlos Francisco Parra García. All rights reserved.
+///
+/// GitHub: https://github.com/carlosparra1998?tab=repositories
+///
+/// LinkedIn: https://www.linkedin.com/in/carlos-francisco-parra-garcía-9b16941b5/
+
 import 'dart:io';
 import 'dart:isolate';
 import 'package:path/path.dart' as p;
@@ -48,7 +78,6 @@ Future<void> main(List<String> args) async {
 
   final projectName = args[1].trim().replaceAll(' ', '_').toLowerCase();
 
-  // Parámetros opcionales
   String packageName = "com.example.$projectName";
   String appName = projectName;
 
@@ -70,7 +99,6 @@ Future<void> main(List<String> args) async {
     exit(1);
   }
 
-  // ---------- Resolver template dentro de lib/template ----------
   final templateDirPath = await resolveTemplatePath();
   final templateDir = Directory('$templateDirPath/template');
 
@@ -79,11 +107,9 @@ Future<void> main(List<String> args) async {
     exit(1);
   }
 
-  // ---------- Copiar template ----------
   print('📦 Copying template...');
   await copyDirectory(templateDir, targetDir);
 
-  // ---------- Reemplazar tokens ----------
   print('🔧 Replacing tokens...');
   await replaceTokensInDirectory(targetDir, {
     '{{PROJECT_NAME}}': projectName,
@@ -92,8 +118,6 @@ Future<void> main(List<String> args) async {
   });
 
   print('🔧 Copied project');
-
-  // ---------- Ejecutar flutter pub get ----------
   print('🔧 Running flutter pub get...\n');
   final result = await Process.run(
     'flutter',
@@ -113,9 +137,6 @@ Future<void> main(List<String> args) async {
   print('👉 flutter run\n');
 }
 
-// -----------------------------------------------------------
-// Copiar directorios recursivamente
-// -----------------------------------------------------------
 Future<void> copyDirectory(Directory source, Directory destination) async {
   if (!destination.existsSync()) destination.createSync(recursive: true);
 
@@ -129,9 +150,6 @@ Future<void> copyDirectory(Directory source, Directory destination) async {
   }
 }
 
-// -----------------------------------------------------------
-// Reemplazar tokens en archivos de texto
-// -----------------------------------------------------------
 Future<void> replaceTokensInDirectory(
   Directory dir,
   Map<String, String> tokens,
@@ -166,11 +184,7 @@ Future<void> replaceTokensInDirectory(
   }
 }
 
-// -----------------------------------------------------------
-// Resolver package: URI a path físico
-// -----------------------------------------------------------
 Future<String> resolveTemplatePath() async {
-  // Cambia 'full_layout' por el nombre de tu paquete en pubspec.yaml
   final templateUri = Uri.parse('package:full_layout/template/');
   final resolved = await Isolate.resolvePackageUri(templateUri);
   if (resolved == null) {

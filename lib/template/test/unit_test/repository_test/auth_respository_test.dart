@@ -18,7 +18,7 @@ void main() {
   });
 
   group('AuthRepository.login', () {
-    test('Login correcto', () async {
+    test('Login OK', () async {
       when(
         () => mockClient.call<AuthSession, AuthSession>(
           any(),
@@ -51,7 +51,7 @@ void main() {
       ).called(1);
     });
 
-    test('Login incorrecto', () async {
+    test('Login KO', () async {
       when(
         () => mockClient.call<AuthSession, AuthSession>(
           any(),

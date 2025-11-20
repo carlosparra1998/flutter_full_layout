@@ -25,7 +25,7 @@ void main() {
   });
 
   group('PostsCubit.login', () {
-    test('Login correcto', () async {
+    test('Login OK', () async {
       when(() => authRepository.login(any(), any())).thenAnswer(
         (_) async => ClientResponse(
           data: AuthSession(accessToken: 'access', refreshToken: 'refresh'),
@@ -45,7 +45,7 @@ void main() {
       verify(() => authRepository.login(any(), any())).called(1);
     });
 
-    test('No hay email', () async {
+    test('There is not email', () async {
       cubit.form.emailController.text = '';
       cubit.form.passwordController.text = 'pass';
 
@@ -56,7 +56,7 @@ void main() {
       verifyNever(() => authRepository.login(any(), any()));
     });
 
-    test('No hay contraseña', () async {
+    test('There is not password', () async {
       cubit.form.emailController.text = 'email';
       cubit.form.passwordController.text = '';
 
@@ -67,7 +67,7 @@ void main() {
       verifyNever(() => authRepository.login(any(), any()));
     });
 
-    test('Login fallado', () async {
+    test('Login KO', () async {
       when(() => authRepository.login(any(), any())).thenAnswer(
         (_) async =>
             ClientResponse(data: null, isError: true, errorMessage: 'error'),

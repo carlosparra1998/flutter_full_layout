@@ -7,7 +7,7 @@ import 'package:mocktail/mocktail.dart';
 
 class MockDio extends Mock implements Dio {
   @override
-  Interceptors get interceptors => Interceptors(); // devuelve un objeto real
+  Interceptors get interceptors => Interceptors();
 }
 
 void main() {
