@@ -1,4 +1,4 @@
-name: {{APP_NAME}}
+name: {{PROJECT_NAME}}
 description: "Generated project"
 publish_to: 'none'
 version: 0.1.0
