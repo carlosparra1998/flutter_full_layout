@@ -100,7 +100,7 @@ Future<void> copyDirectory(Directory source, Directory destination) async {
 // Reemplazar tokens en archivos de texto
 // -----------------------------------------------------------
 Future<void> replaceTokensInDirectory(Directory dir, Map<String, String> tokens) async {
-  final allowedExtensions = ['.dart','.yaml','.gradle','.xml','.json','.md','.txt','.plist'];
+  final allowedExtensions = ['.dart','.yaml','.gradle','.xml','.json','.md','.txt','.plist', '.kts', '.pbxproj'];
 
   await for (final entity in dir.list(recursive: true)) {
     if (entity is! File) continue;
