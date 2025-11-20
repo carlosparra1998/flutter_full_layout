@@ -1,3 +1,7 @@
+## 1.2.1
+
+- Fix bugs in CLI.
+
 ## 1.2.0
 
 - Fix details.
