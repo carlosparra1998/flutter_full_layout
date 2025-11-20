@@ -15,7 +15,7 @@ include: package:lints/recommended.yaml
 
 analyzer:
   exclude:
-    - lib/template/**
+    - template/**
 
 # Uncomment the following section to specify additional rules.
 
