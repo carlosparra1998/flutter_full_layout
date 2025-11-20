@@ -141,7 +141,8 @@ Future<void> main(List<String> args) async {
 Future<void> copyDirectory(Directory source, Directory destination) async {
   if (!destination.existsSync()) destination.createSync(recursive: true);
 
-  await for (final entity in source.list(recursive: false, followLinks: false)) {
+  await for (final entity
+      in source.list(recursive: false, followLinks: false)) {
     final newPath = p.join(destination.path, p.basename(entity.path));
 
     if (entity is Directory) {
