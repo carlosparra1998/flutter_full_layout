@@ -119,6 +119,13 @@ Future<void> main(List<String> args) async {
   });
 
   print('🔧 Copied project');
+  print('🔧 Generating .env and .gitignore files');
+  final templates = await loadRootTemplates();
+  await generateHiddenFiles(
+    targetDir,
+    templates['env']!,
+    templates['gitignore']!,
+  );
   print('🔧 Running flutter pub get...\n');
   final result = await Process.run(
     'flutter',
@@ -193,8 +200,40 @@ Future<String> resolveTemplatePath() async {
   final resolved = await Isolate.resolvePackageUri(templateUri);
   if (resolved == null) {
     throw Exception(
-      'The template could not be resolved from the package:flutter_full_layout/template',
+      '❌ The template could not be resolved from the package:flutter_full_layout/template',
     );
   }
   return p.dirname(resolved.toFilePath());
+}
+
+Future<Map<String, String>> loadRootTemplates() async {
+  final pkgUri = await Isolate.resolvePackageUri(
+      Uri.parse('package:flutter_full_layout/'));
+  if (pkgUri == null) {
+    throw Exception('❌ Error in loading .gitignore and .env files');
+  }
+
+  final packageRoot = Directory(pkgUri.toFilePath());
+
+  final envFile = File(p.join(packageRoot.path, 'env.template'));
+  final gitignoreFile = File(p.join(packageRoot.path, 'gitignore.template'));
+
+  final envContent = await envFile.readAsString();
+  final gitignoreContent = await gitignoreFile.readAsString();
+
+  return {
+    'env': envContent,
+    'gitignore': gitignoreContent,
+  };
+}
+
+Future<void> generateHiddenFiles(
+  Directory projectDir,
+  String envContent,
+  String gitignoreContent,
+) async {
+  final envFile = File(p.join(projectDir.path, '.env'));
+  await envFile.writeAsString(envContent);
+  final gitignore = File(p.join(projectDir.path, '.gitignore'));
+  await gitignore.writeAsString(gitignoreContent);
 }

@@ -1,3 +1,7 @@
+## 1.2.3
+
+- Fix bug in .env and .gitignore files
+
 ## 1.2.2
 
 - Fix bug in .env and .gitignore files
