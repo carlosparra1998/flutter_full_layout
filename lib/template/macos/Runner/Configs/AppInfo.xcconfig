@@ -8,7 +8,7 @@
 PRODUCT_NAME = full_layout_base
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = es.parra.developments.fullLayoutBase
+PRODUCT_BUNDLE_IDENTIFIER = {{PACKAGE_NAME}}
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2025 es.parra.developments. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2025 {{PACKAGE_NAME}}. All rights reserved.

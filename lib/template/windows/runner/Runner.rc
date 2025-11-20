@@ -89,11 +89,11 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "es.parra.developments" "\0"
+            VALUE "CompanyName", "{{PACKAGE_NAME}}" "\0"
             VALUE "FileDescription", "full_layout_base" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "full_layout_base" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2025 es.parra.developments. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2025 {{PACKAGE_NAME}}. All rights reserved." "\0"
             VALUE "OriginalFilename", "full_layout_base.exe" "\0"
             VALUE "ProductName", "full_layout_base" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"

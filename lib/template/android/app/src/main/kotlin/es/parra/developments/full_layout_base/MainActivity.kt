@@ -1,4 +1,4 @@
-package es.parra.developments.full_layout_base
+package {{PACKAGE_NAME}}
 
 import io.flutter.embedding.android.FlutterActivity
 
