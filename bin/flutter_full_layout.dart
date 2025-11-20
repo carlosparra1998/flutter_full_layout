@@ -100,8 +100,8 @@ Future<void> main(List<String> args) async {
   }
 
   final templateDirPath = await resolveTemplatePath();
-  String parentPath = p.normalize(p.join(templateDirPath, '..', 'template'));
-  print(parentPath);
+  String parentPath = p.normalize(p.join(templateDirPath, '..'));
+  print(p.join(parentPath,'template'));
   final templateDir = Directory(parentPath);
 
   if (!templateDir.existsSync()) {
